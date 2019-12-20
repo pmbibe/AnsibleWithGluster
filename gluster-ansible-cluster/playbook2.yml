@@ -1,0 +1,26 @@
+---
+- name: Create Gluster cluster
+  hosts: all
+  remote_user: root
+  gather_facts: false
+
+  vars:
+    # gluster volume
+    gluster_cluster_hosts:
+      - 192.168.141.205
+      - 192.168.141.208
+      - 192.168.141.206
+    gluster_cluster_volume: testvol
+    gluster_cluster_transport: 'tcp'
+    gluster_cluster_force: 'yes'
+    gluster_cluster_bricks: '/mnt/brick2/store'
+
+    # variables to create specific type of the volume
+    gluster_cluster_replica_count: 3
+
+    # variables to set specific volume options
+#    gluster_cluster_options: 'performance.cache-size:256MB'
+
+  roles:
+    - gluster_brick
+    - gluster_volume
